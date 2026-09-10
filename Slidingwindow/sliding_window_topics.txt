@@ -1,0 +1,275 @@
+SLIDING WINDOW — DSA TOPICS & PATTERNS
+
+1. BASIC SLIDING WINDOW CONCEPT
+- Two pointers: left and right
+- Expand the window using right
+- Shrink the window using left
+- Window is [left ... right]
+- Window length = right - left + 1
+
+2. FIXED-SIZE SLIDING WINDOW
+Use when window size K is fixed.
+
+General pattern:
+- Add the element at right
+- If window size becomes greater than K, remove the element at left
+- When window size becomes K, calculate/update the answer
+
+Common operations:
+- Maximum sum of subarray of size K
+- Minimum sum of subarray of size K
+- Average of every window
+- First negative number in every window
+- Maximum/minimum in every window
+
+3. VARIABLE-SIZE SLIDING WINDOW
+Use when the window size changes according to a condition.
+
+General pattern:
+- Expand with right
+- Check whether the window is valid
+- If invalid, shrink from left until valid
+- Update the answer
+
+Template:
+left = 0
+
+for right = 0 to n-1:
+    add nums[right]
+
+    while window is invalid:
+        remove nums[left]
+        left++
+
+    update answer
+
+4. LONGEST VALID WINDOW
+Typical wording:
+- Longest substring
+- Longest subarray
+- Maximum length
+- At most K
+- Without repeating characters
+
+Pattern:
+- Expand right
+- Shrink while invalid
+- Update maximum length
+
+Example:
+Longest Substring Without Repeating Characters
+
+5. SHORTEST VALID WINDOW
+Typical wording:
+- Minimum length
+- Smallest window
+- Shortest substring/subarray
+- Minimum window satisfying a condition
+
+Pattern:
+- Expand right until the window becomes valid
+- While valid, update minimum answer
+- Shrink from left
+
+Example:
+Minimum Size Subarray Sum
+Minimum Window Substring
+
+6. FREQUENCY MAP / COUNTING
+Very common in string problems.
+
+Use:
+Dictionary / HashMap
+or
+int[] frequency array
+
+Typical problems:
+- Longest substring with K distinct characters
+- Longest substring without repeating characters
+- Permutation in String
+- Find All Anagrams in a String
+- Minimum Window Substring
+
+Important idea:
+Add s[right] to frequency.
+When shrinking, remove s[left] from frequency.
+
+7. AT MOST K
+Common pattern:
+"At most K distinct elements/characters"
+
+Maintain a window where:
+distinct <= K
+
+When distinct > K:
+shrink from left.
+
+Example:
+Longest Substring with At Most K Distinct Characters
+
+8. EXACTLY K
+A useful counting technique:
+
+exactly(K) = atMost(K) - atMost(K - 1)
+
+This is especially useful when the problem asks:
+- Number of subarrays with exactly K distinct elements
+- Number of substrings with exactly K distinct characters
+
+9. COUNTING VALID SUBARRAYS
+When every window ending at right is valid after finding the correct left boundary:
+
+count += right - left + 1
+
+This can count all valid subarrays ending at right.
+
+10. SLIDING WINDOW MAXIMUM — MONOTONIC DEQUE
+For problems such as:
+LeetCode 239 — Sliding Window Maximum
+
+This uses:
+Sliding Window + Monotonic Deque
+
+Keep indices in the deque such that their values are decreasing.
+
+Example:
+Deque values:
+[6, 5, 3, 1]
+
+Therefore:
+deque.front = maximum
+
+When adding nums[right]:
+- Remove indices from the back while their values are <= nums[right]
+- Add right to the back
+- Remove the front if it is outside the current window
+- When the window is complete, nums[deque.front] is the maximum
+
+Important:
+The deque stores INDICES, not just values.
+
+Time:
+O(n)
+
+11. MONOTONIC DEQUE — WHY?
+Without a deque:
+Find maximum by scanning each window -> O(n * K)
+
+With a monotonic deque:
+Each index enters and leaves the deque at most once -> O(n)
+
+12. SLIDING WINDOW + DEQUE
+For:
+- Maximum of every window -> decreasing monotonic deque
+- Minimum of every window -> increasing monotonic deque
+
+13. IMPORTANT PATTERN RECOGNITION
+
+Question asks fixed K?
+-> Fixed-size window
+
+Question asks longest/max length?
+-> Variable-size window + shrink when invalid
+
+Question asks shortest/minimum length?
+-> Variable-size window + shrink while valid
+
+Question involves characters/frequencies?
+-> Sliding window + frequency map
+
+Question asks at most K?
+-> Maintain condition <= K
+
+Question asks exactly K?
+-> Often use atMost(K) - atMost(K-1)
+
+Question asks maximum/minimum for every window?
+-> Monotonic deque
+
+14. CORE TEMPLATES
+
+Fixed window:
+left = 0
+
+for right = 0 to n-1:
+    add nums[right]
+
+    if right - left + 1 > K:
+        remove nums[left]
+        left++
+
+    if right - left + 1 == K:
+        update answer
+
+
+Variable window:
+left = 0
+
+for right = 0 to n-1:
+    add nums[right]
+
+    while window is invalid:
+        remove nums[left]
+        left++
+
+    update answer
+
+
+Minimum valid window:
+left = 0
+
+for right = 0 to n-1:
+    add nums[right]
+
+    while window is valid:
+        update minimum answer
+        remove nums[left]
+        left++
+
+
+15. IMPORTANT LEETCODE PRACTICE ORDER
+
+Easy:
+- 643. Maximum Average Subarray I
+- 1456. Maximum Number of Vowels in a Substring of Given Length
+- 219. Contains Duplicate II
+
+Medium:
+- 3. Longest Substring Without Repeating Characters
+- 567. Permutation in String
+- 438. Find All Anagrams in a String
+- 424. Longest Repeating Character Replacement
+- 904. Fruit Into Baskets
+- 1004. Max Consecutive Ones III
+- 209. Minimum Size Subarray Sum
+- 239. Sliding Window Maximum
+- 76. Minimum Window Substring
+
+16. LEARNING CHECKLIST
+
+Before solving a problem, ask:
+1. Is the window fixed or variable?
+2. What makes the window valid?
+3. When should I move right?
+4. When should I move left?
+5. Am I finding maximum, minimum, length, or count?
+6. Do I need a frequency map?
+7. Do I need a monotonic deque?
+8. Can I solve it in O(n)?
+
+KEY IDEA TO REMEMBER:
+
+Sliding Window is the overall technique.
+
+Monotonic Deque is a specific data structure used with sliding window when we need efficient maximum/minimum values.
+
+Most sliding-window problems can be recognized as:
+- Fixed Window
+- Variable Window
+- Longest Valid Window
+- Shortest Valid Window
+- Frequency/HashMap Window
+- At Most K
+- Exactly K
+- Counting Windows
+- Monotonic Deque
