@@ -1,0 +1,237 @@
+1. Fast & Slow Pointers — ⭐ Very Important
+
+Use two pointers moving at different speeds.
+
+Typical problems:
+
+Detect a cycle
+Find the middle of a linked list
+Find the starting point of a cycle
+Check if a linked list is a palindrome
+
+Example:
+
+slow → moves 1 step
+fast → moves 2 steps
+
+When fast reaches the end, slow is usually at the middle.
+
+Pattern: slow + fast
+
+2. Reversing a Linked List
+
+One of the most fundamental linked-list patterns.
+
+Problems:
+
+Reverse Linked List
+Reverse Linked List II
+Reverse nodes in groups
+Palindrome Linked List
+
+Basic idea:
+
+1 → 2 → 3 → 4 → null
+
+        ↓ reverse
+
+4 → 3 → 2 → 1 → null
+
+Core variables:
+
+prev
+current
+next
+
+Think:
+
+next = current.next
+current.next = prev
+prev = current
+current = next
+
+Pattern: prev + current + next
+
+3. Dummy Node / Sentinel Node
+
+Use a fake node before the actual head.
+
+dummy → 1 → 2 → 3
+
+This makes operations involving the head much easier.
+
+Useful for:
+
+Remove nodes
+Insert nodes
+Merge lists
+Partition list
+Delete duplicates
+
+For example, instead of special-casing:
+
+if (head needs to be removed)
+
+you can work with:
+
+dummy.next = head
+
+Pattern: dummy → head
+
+4. Two Pointers With a Gap
+
+This is related to fast/slow pointers, but the important idea is maintaining a fixed distance between two pointers.
+
+Example:
+
+Remove the Nth node from the end.
+
+Move fast ahead by n nodes:
+
+slow
+ ↓
+1 → 2 → 3 → 4 → 5
+                ↑
+               fast
+
+Then move both together.
+
+When fast reaches the end, slow is positioned where you need it.
+
+Pattern: maintain a gap of N
+
+5. Merge Two Linked Lists
+
+Very common.
+
+Example:
+
+1 → 3 → 5
+2 → 4 → 6
+
+       ↓
+
+1 → 2 → 3 → 4 → 5 → 6
+
+Compare the current nodes of both lists and attach the smaller one.
+
+Usually combined with a dummy node.
+
+Pattern: dummy + two pointers
+
+6. Merge K Sorted Lists
+
+Extension of merging two lists.
+
+1 → 4 → 7
+2 → 5
+3 → 6 → 8
+
+Common approaches:
+
+Approach 1
+
+Repeatedly merge lists.
+
+Approach 2 — Heap
+
+Put the current node from each list into a min heap.
+
+Pattern: Priority Queue / Min Heap
+
+This is an important harder linked-list pattern.
+
+7. Recursion
+
+Some linked-list problems become easier recursively.
+
+Common examples:
+
+Reverse Linked List
+Merge two lists
+Reverse nodes in K groups
+Sort Linked List
+
+Think:
+
+solve(current.next)
+
+and then modify the pointers while returning.
+
+Pattern: solve the smaller linked list first.
+
+8. In-place Pointer Manipulation
+
+A lot of Linked List problems are essentially:
+
+"Can you change the pointers without creating another list?"
+
+Examples:
+
+Reverse a list
+Remove nodes
+Swap pairs
+Rotate list
+Reverse K nodes
+Reorder list
+
+You should become comfortable drawing:
+
+A → B → C → D
+
+and changing:
+
+A.next
+B.next
+C.next
+
+without losing the rest of the list.
+
+9. Split → Process → Merge
+
+Very useful advanced pattern.
+
+For example, Sort List:
+
+1 → 4 → 2 → 3
+
+Split:
+
+1 → 4       2 → 3
+
+Sort each:
+
+1 → 4       2 → 3
+
+Merge:
+
+1 → 2 → 3 → 4
+
+This is essentially Merge Sort on a linked list.
+
+Pattern:
+
+Split
+  ↓
+Solve each half
+  ↓
+Merge
+10. Reorder / Multiple-Pointer Pattern
+
+Example:
+
+1 → 2 → 3 → 4 → 5
+
+Reorder:
+
+1 → 5 → 2 → 4 → 3
+
+Usually solved using:
+
+Find middle
+    ↓
+Reverse second half
+    ↓
+Merge two halves
+
+This is an important combination pattern.
